@@ -25,7 +25,7 @@ export const Clients = () => {
 
     return (
         <section id="clients" className="py-12 md:py-24 relative overflow-hidden scroll-mt-24" ref={scrollRef}>
-            <div className="max-w-7xl mx-auto px-5 sm:px-8 mb-10 md:mb-16 text-center">
+            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mb-10 md:mb-16 text-center">
                 <h2 className="text-white/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-4">Trusted by Industry Leaders Worldwide</h2>
                 <div className="h-[1px] w-16 sm:w-24 bg-gradient-to-r from-transparent via-primary/50 to-transparent mx-auto" />
             </div>

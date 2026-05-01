@@ -11,10 +11,10 @@ gsap.registerPlugin(ScrollTrigger);
 const services = [
     { title: "Web Application Development", description: "High-performance, scalable web apps built with the latest technologies like Next.js and React.", icon: Globe, gradient: "from-primary/30 to-transparent" },
     { title: "AI & Automation Solutions", description: "Intelligent systems that automate your workflows and provide data-driven insights.", icon: Cpu, gradient: "from-white/20 to-transparent" },
-    { title: "SaaS Platforms", description: "Complete SaaS product development from architecture to deployment and scaling.", icon: Cloud, gradient: "from-secondary/30 to-transparent" },
-    { title: "Cloud Systems", description: "Robust cloud infrastructure design and management for maximum availability and security.", icon: Database, gradient: "from-primary/20 to-transparent" },
+    { title: "SaaS Platforms", description: "Complete SaaS product development from architecture to deployment and scaling.", icon: Cloud, gradient: "from-primary/20 to-transparent" },
+    { title: "Cloud Systems", description: "Robust cloud infrastructure design and management for maximum availability and security.", icon: Database, gradient: "from-primary/10 to-transparent" },
     { title: "Data Engineering", description: "Building scalable data pipelines and warehousing solutions for complex datasets.", icon: BarChart3, gradient: "from-white/10 to-transparent" },
-    { title: "Custom Software", description: "Tailor-made software solutions specifically designed to solve your unique business challenges.", icon: Code2, gradient: "from-secondary/20 to-transparent" },
+    { title: "Custom Software", description: "Tailor-made software solutions specifically designed to solve your unique business challenges.", icon: Code2, gradient: "from-primary/15 to-transparent" },
 ];
 
 export const Services = () => {
@@ -35,9 +35,9 @@ export const Services = () => {
 
     return (
         <section id="services" ref={sectionRef} className="py-16 md:py-24 px-5 sm:px-8 bg-gradient-glow scroll-mt-24">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-[1400px] mx-auto">
                 <div className="mb-12 md:mb-16 text-center">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Our <span className="text-gradient-gold">Core Services</span></h2>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Our <span className="text-gradient-red">Core Services</span></h2>
                     <p className="text-white/60 text-base md:text-lg max-w-2xl mx-auto">
                         We provide end-to-end digital transformation solutions to help startups and enterprises scale.
                     </p>
@@ -47,7 +47,7 @@ export const Services = () => {
                     {services.map((service, index) => (
                         <div
                             key={index}
-                            className="service-card glass p-6 md:p-8 rounded-2xl md:rounded-3xl group hover:border-primary/50 transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(212,175,55,0.1)] relative overflow-hidden cursor-pointer"
+                            className="service-card glass p-6 md:p-8 rounded-2xl md:rounded-[2rem] group hover:border-primary/50 transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(232,52,42,0.15)] relative overflow-hidden cursor-pointer"
                         >
                             <div className={cn(
                                 "absolute -right-8 -top-8 w-24 h-24 blur-3xl opacity-20 group-hover:opacity-40 transition-opacity bg-gradient-to-br",

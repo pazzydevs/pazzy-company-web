@@ -32,8 +32,8 @@ function FloatingGeometries() {
         const time = state.clock.getElapsedTime();
         meshRefs.current.forEach((mesh, i) => {
             if (mesh) {
-                mesh.rotation.x += 0.005 * items[i].speed;
-                mesh.rotation.y += 0.005 * items[i].speed;
+                mesh.rotation.x += 0.004 * items[i].speed;
+                mesh.rotation.y += 0.004 * items[i].speed;
                 mesh.position.y += Math.sin(time + i) * 0.002;
             }
         });
@@ -51,19 +51,19 @@ function FloatingGeometries() {
                     >
                         <primitive object={item.geometry} attach="geometry" />
                         <meshPhysicalMaterial
-                            color="#d4af37"
-                            transmission={0.9}
+                            color="#E8342A"
+                            transmission={0.85}
                             opacity={1}
                             transparent
-                            metalness={0.6}
-                            roughness={0.2}
-                            ior={1.5}
+                            metalness={0.3}
+                            roughness={0.15}
+                            ior={1.6}
                             thickness={2}
                             specularIntensity={1}
-                            specularColor="#ffffff"
+                            specularColor="#ff8080"
                             clearcoat={1}
-                            clearcoatRoughness={0.1}
-                            envMapIntensity={1.5}
+                            clearcoatRoughness={0.05}
+                            envMapIntensity={1.2}
                         />
                     </mesh>
                 </Float>
@@ -74,17 +74,18 @@ function FloatingGeometries() {
 
 export default function Scene() {
     return (
-        <div className="fixed inset-0 -z-10 bg-[#050505]">
+        <div className="fixed inset-0 -z-10 bg-[#080808]">
             <Canvas>
                 <PerspectiveCamera makeDefault position={[0, 0, 10]} />
-                <ambientLight intensity={0.2} />
-                <pointLight position={[10, 10, 10]} intensity={1.5} color="#ffffff" />
-                <pointLight position={[-10, -10, -10]} intensity={0.5} color="#d4af37" />
+                <ambientLight intensity={0.15} />
+                <pointLight position={[10, 10, 10]} intensity={1.2} color="#ffffff" />
+                <pointLight position={[-10, -10, -10]} intensity={0.6} color="#E8342A" />
+                <pointLight position={[0, 5, 5]} intensity={0.4} color="#ff6b5e" />
                 <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
                 <Environment preset="city" />
                 <FloatingGeometries />
             </Canvas>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/60 to-[#050505]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#080808]/60 to-[#080808]" />
         </div>
     );
 }

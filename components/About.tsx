@@ -36,10 +36,10 @@ export const About = () => {
             ref={sectionRef}
             className="py-16 md:py-24 px-5 sm:px-8 relative overflow-hidden scroll-mt-24"
         >
-            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+            <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
                 <div className="about-vision flex flex-col gap-5">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-                        Pioneering the <span className="text-gradient-gold">Digital Era</span>
+                        Pioneering the <span className="text-gradient-red">Digital Era</span>
                     </h2>
                     <p className="text-base md:text-lg text-white/60 leading-relaxed">
                         Pazzy is a collective of visionary engineers, designers, and AI specialists dedicated to crafting the tools of tomorrow. We believe technology should empower, not overwhelm.
@@ -50,28 +50,28 @@ export const About = () => {
                             <p className="text-xs sm:text-sm text-white/40 uppercase tracking-widest">Client Satisfaction</p>
                         </div>
                         <div>
-                            <h3 className="text-3xl sm:text-4xl font-bold text-secondary mb-2">50+</h3>
+                            <h3 className="text-3xl sm:text-4xl font-bold text-white mb-2">50+</h3>
                             <p className="text-xs sm:text-sm text-white/40 uppercase tracking-widest">Projects Delivered</p>
                         </div>
                         <div>
-                            <h3 className="text-3xl sm:text-4xl font-bold text-primary mb-2">5+</h3>
+                            <h3 className="text-3xl sm:text-4xl font-bold text-white mb-2">5+</h3>
                             <p className="text-xs sm:text-sm text-white/40 uppercase tracking-widest">Years Experience</p>
                         </div>
                         <div>
-                            <h3 className="text-3xl sm:text-4xl font-bold text-secondary mb-2">12+</h3>
+                            <h3 className="text-3xl sm:text-4xl font-bold text-primary mb-2">12+</h3>
                             <p className="text-xs sm:text-sm text-white/40 uppercase tracking-widest">Team Members</p>
                         </div>
                     </div>
                 </div>
 
-                <div className="about-image relative w-full aspect-video md:aspect-square rounded-2xl sm:rounded-3xl overflow-hidden group border border-white/10 shadow-2xl">
+                <div className="about-image relative w-full aspect-video md:aspect-square rounded-2xl sm:rounded-[2.5rem] overflow-hidden group border border-white/10 shadow-2xl">
                     <img
                         src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80"
-                        alt="Luxury Agency Office"
+                        alt="Agency Office"
                         className="about-image-inner absolute inset-0 w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-transparent" />
-                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/20 to-transparent" />
+                    <div className="absolute inset-0 bg-[#E8342A]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </div>
             </div>
         </section>

@@ -21,10 +21,10 @@ export const Contact = () => {
 
     return (
         <section id="contact" className="py-16 md:py-24 px-5 sm:px-8 scroll-mt-24">
-            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 md:gap-16">
+            <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-10 md:gap-16">
                 {/* Left Info */}
                 <div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5">Let's <span className="text-gradient-gold">Connect</span></h2>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5">Let's <span className="text-gradient-red">Connect</span></h2>
                     <p className="text-white/60 text-base md:text-lg mb-10 max-w-lg">
                         Ready to bring your vision to life? Fill out the form or reach out directly via one of our channels.
                     </p>
@@ -37,7 +37,7 @@ export const Contact = () => {
                         ].map(({ icon: Icon, label, value }) => (
                             <div key={label} className="flex items-start gap-4 sm:gap-6 group">
                                 <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl glass border border-white/5 flex items-center justify-center group-hover:bg-primary transition-colors flex-shrink-0">
-                                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-white transition-colors" />
                                 </div>
                                 <div>
                                     <h4 className="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">{label}</h4>
@@ -83,7 +83,7 @@ export const Contact = () => {
                         <Button
                             type="submit"
                             disabled={isSubmitting}
-                            className="w-full py-4 rounded-xl font-bold flex gap-3 text-base bg-primary hover:bg-[#c5a034] text-black shadow-[0_10px_30px_rgba(212,175,55,0.2)]"
+                            className="w-full py-4 rounded-xl font-bold flex gap-3 text-base bg-primary hover:bg-primary-dark text-white shadow-[0_10px_30px_rgba(232,52,42,0.25)]"
                         >
                             {isSubmitting ? "Sending..." : isSuccess ? "Success! ✓" : "Send Message"}
                             {!isSuccess && <Send size={18} />}
@@ -91,10 +91,10 @@ export const Contact = () => {
                     </form>
 
                     {isSuccess && (
-                        <div className="absolute inset-0 bg-primary/10 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-500 z-20 rounded-2xl">
-                            <div className="text-center p-8 glass rounded-3xl mx-4">
-                                <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <Send className="text-black" />
+                        <div className="absolute inset-0 bg-primary/10 backdrop-blur-md flex items-center justify-center animate-in fade-in duration-500 z-20 rounded-2xl">
+                            <div className="text-center p-8 glass rounded-3xl mx-4 border border-primary/20">
+                                <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(232,52,42,0.4)]">
+                                    <Send className="text-white" />
                                 </div>
                                 <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
                                 <p className="text-white/60">We'll get back to you within 24 hours.</p>

@@ -45,7 +45,7 @@ export const Testimonials = () => {
         <section className="py-16 md:py-24 px-5 sm:px-8 overflow-hidden bg-gradient-glow">
             <div className="max-w-4xl mx-auto text-center" ref={containerRef}>
                 <div className="flex justify-center mb-6 md:mb-8">
-                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-full glass flex items-center justify-center">
+                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl glass flex items-center justify-center border border-white/5 shadow-[0_4px_14px_rgba(232,52,42,0.15)]">
                         <Quote className="text-primary w-5 h-5 md:w-6 md:h-6" />
                     </div>
                 </div>

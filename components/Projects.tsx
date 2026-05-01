@@ -28,9 +28,9 @@ export const Projects = () => {
 
     return (
         <section id="ai" ref={containerRef} className="py-16 md:py-24 px-5 sm:px-8 scroll-mt-24">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-[1400px] mx-auto">
                 <div className="mb-12 md:mb-16">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Ongoing <span className="text-gradient-gold">Innovations</span></h2>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Ongoing <span className="text-gradient-red">Innovations</span></h2>
                     <p className="text-white/60 text-base md:text-lg max-w-2xl">
                         A glimpse into the cutting-edge solutions we're currently building for our partners.
                     </p>
@@ -38,17 +38,17 @@ export const Projects = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                     {projects.map((project, index) => (
-                        <div key={index} className="project-card glass rounded-2xl md:rounded-[2rem] overflow-hidden group cursor-pointer hover:border-primary/30 transition-all duration-500">
-                            <div className="h-44 sm:h-52 relative overflow-hidden">
+                        <div key={index} className="project-card glass rounded-2xl md:rounded-[2rem] overflow-hidden group cursor-pointer hover:border-primary/30 transition-all duration-500 hover:shadow-[0_15px_30px_rgba(232,52,42,0.1)]">
+                            <div className="h-44 sm:h-52 md:h-64 relative overflow-hidden">
                                 <img
                                     src={project.image}
                                     alt={project.name}
                                     className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700 ease-out"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent opacity-90" />
                                 <div className="absolute top-4 right-4 z-10">
-                                    <div className={`px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase flex items-center gap-2 backdrop-blur-md border border-white/5 ${project.status === "Completed" ? "bg-primary/20 text-[#d4af37]" : "bg-white/10 text-white/70"}`}>
-                                        <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${project.status === "Completed" ? "bg-primary" : "bg-white/60"}`} />
+                                    <div className={`px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase flex items-center gap-2 backdrop-blur-md border border-white/5 ${project.status === "Completed" ? "bg-primary/20 text-[#ff6b5e]" : "bg-white/10 text-white/70"}`}>
+                                        <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${project.status === "Completed" ? "bg-[#ff6b5e]" : "bg-white/60"}`} />
                                         {project.status}
                                     </div>
                                 </div>
