@@ -4,11 +4,12 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Link from "next/link";
 
-const clients = [
-    "TECHFLOW", "NEXUS AI", "QUANTUM", "VELOCITY", "ELEVATE", "SYNERGY", "HORIZON", "PULSE", "ZENITH", "VORTEX"
-];
+interface Client {
+    id: string;
+    name: string;
+}
 
-export const Clients = () => {
+export const Clients = ({ initialClients }: { initialClients: Client[] }) => {
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -23,6 +24,9 @@ export const Clients = () => {
         return () => ctx.revert();
     }, []);
 
+    // Ensure we have enough items for a smooth infinite scroll
+    const items = [...initialClients, ...initialClients, ...initialClients];
+
     return (
         <section id="clients" className="py-12 md:py-24 relative overflow-hidden scroll-mt-24" ref={scrollRef}>
             <div className="max-w-[1400px] mx-auto px-5 sm:px-8 mb-10 md:mb-16 text-center">
@@ -36,18 +40,18 @@ export const Clients = () => {
                 <div className="absolute inset-y-0 right-0 w-40 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
 
                 <div className="flex whitespace-nowrap client-scroller items-center py-4">
-                    {[...clients, ...clients].map((client, i) => (
+                    {items.map((client, i) => (
                         <div key={i} className="flex items-center justify-center px-16 group">
                             <span className="text-3xl md:text-4xl font-black text-white/10 hover:text-primary transition-all duration-500 cursor-default tracking-tighter uppercase italic group-hover:scale-110">
-                                {client}
+                                {client.name}
                             </span>
                         </div>
                     ))}
                 </div>
 
                 <div className="mt-16 text-center">
-                    <Link href="/clients" className="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all uppercase tracking-widest text-sm">
-                        View our full client list <span>→</span>
+                    <Link href="/#contact" className="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all uppercase tracking-widest text-sm">
+                        Become a partner <span>→</span>
                     </Link>
                 </div>
             </div>

@@ -12,11 +12,10 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
-import { Navbar } from "@/components/Navbar";
-import Scene from "@/components/Scene";
-import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { Preloader } from "@/components/Preloader";
+export const metadata: Metadata = {
+  title: "Pazzy Solutions | Admin",
+  description: "Luxury Digital Solutions",
+};
 
 export default function RootLayout({
   children,
@@ -29,12 +28,7 @@ export default function RootLayout({
         className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-background text-foreground`}
         suppressHydrationWarning
       >
-        <Preloader />
-        <Scene />
-        <Navbar />
         {children}
-        <Footer />
-        <WhatsAppButton />
       </body>
     </html>
   );

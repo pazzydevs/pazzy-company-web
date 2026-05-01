@@ -1,65 +1,61 @@
 "use client";
 
-import { Code2, Cpu, Globe, Cloud, Database, BarChart3 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import * as LucideIcons from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const services = [
-    { title: "Web Application Development", description: "High-performance, scalable web apps built with the latest technologies like Next.js and React.", icon: Globe, gradient: "from-primary/30 to-transparent" },
-    { title: "AI & Automation Solutions", description: "Intelligent systems that automate your workflows and provide data-driven insights.", icon: Cpu, gradient: "from-white/20 to-transparent" },
-    { title: "SaaS Platforms", description: "Complete SaaS product development from architecture to deployment and scaling.", icon: Cloud, gradient: "from-primary/20 to-transparent" },
-    { title: "Cloud Systems", description: "Robust cloud infrastructure design and management for maximum availability and security.", icon: Database, gradient: "from-primary/10 to-transparent" },
-    { title: "Data Engineering", description: "Building scalable data pipelines and warehousing solutions for complex datasets.", icon: BarChart3, gradient: "from-white/10 to-transparent" },
-    { title: "Custom Software", description: "Tailor-made software solutions specifically designed to solve your unique business challenges.", icon: Code2, gradient: "from-primary/15 to-transparent" },
-];
+interface Service {
+    id: string;
+    title: string;
+    description: string;
+    iconName: string;
+    gradient: string;
+}
 
-export const Services = () => {
-    const sectionRef = useRef<HTMLDivElement>(null);
+export const Services = ({ initialServices }: { initialServices: Service[] }) => {
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.fromTo(".service-card",
-                { scale: 0.85, opacity: 0, y: 50 },
-                {
-                    scrollTrigger: { trigger: sectionRef.current, start: "top 85%" },
-                    scale: 1, opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: "back.out(1.5)"
-                }
+                { y: 50, opacity: 0 },
+                { scrollTrigger: { trigger: containerRef.current, start: "top 80%" }, y: 0, opacity: 1, stagger: 0.1, duration: 0.8, ease: "power2.out" }
             );
-        }, sectionRef);
+        }, containerRef);
         return () => ctx.revert();
     }, []);
 
     return (
-        <section id="services" ref={sectionRef} className="py-16 md:py-24 px-5 sm:px-8 bg-gradient-glow scroll-mt-24">
+        <section id="services" ref={containerRef} className="py-16 md:py-24 px-5 sm:px-8 scroll-mt-24">
             <div className="max-w-[1400px] mx-auto">
-                <div className="mb-12 md:mb-16 text-center">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Our <span className="text-gradient-red">Core Services</span></h2>
-                    <p className="text-white/60 text-base md:text-lg max-w-2xl mx-auto">
-                        We provide end-to-end digital transformation solutions to help startups and enterprises scale.
+                <div className="mb-12 md:mb-16">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Core <span className="text-gradient-red">Expertise</span></h2>
+                    <p className="text-white/60 text-base md:text-lg max-w-2xl">
+                        We combine strategic thinking with engineering excellence to deliver high-impact digital solutions.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-                    {services.map((service, index) => (
-                        <div
-                            key={index}
-                            className="service-card glass p-6 md:p-8 rounded-2xl md:rounded-[2rem] group hover:border-primary/50 transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(232,52,42,0.15)] relative overflow-hidden cursor-pointer"
-                        >
-                            <div className={cn(
-                                "absolute -right-8 -top-8 w-24 h-24 blur-3xl opacity-20 group-hover:opacity-40 transition-opacity bg-gradient-to-br",
-                                service.gradient
-                            )} />
-                            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/5 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 border border-white/5">
-                                <service.icon className="text-primary w-5 h-5 sm:w-6 sm:h-6" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {initialServices.map((service) => {
+                        // Dynamically resolve icon
+                        const Icon = (LucideIcons as any)[service.iconName] || LucideIcons.Briefcase;
+                        
+                        return (
+                            <div key={service.id} className="service-card glass p-8 rounded-3xl group hover:border-primary/40 transition-all duration-500 relative overflow-hidden h-full">
+                                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                                <div className="relative z-10">
+                                    <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-500">
+                                        <Icon className="text-primary w-6 h-6" />
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">{service.title}</h3>
+                                    <p className="text-white/50 text-sm leading-relaxed">{service.description}</p>
+                                </div>
                             </div>
-                            <h3 className="text-lg sm:text-xl font-bold mb-3 group-hover:text-primary transition-colors">{service.title}</h3>
-                            <p className="text-white/50 leading-relaxed text-sm sm:text-base group-hover:text-white/70 transition-colors">{service.description}</p>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

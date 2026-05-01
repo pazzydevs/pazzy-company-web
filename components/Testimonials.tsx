@@ -1,73 +1,63 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Quote } from "lucide-react";
 
-const testimonials = [
-    {
-        name: "Alex Rivera",
-        company: "NexGen Labs",
-        text: "Pazzy transformed our legacy systems into a modern SaaS powerhouse. Their team's technical depth is unparalleled.",
-    },
-    {
-        name: "Sarah Chen",
-        company: "ScaleUp AI",
-        text: "Working with Pazzy felt like having an elite engineering team on demand. They didn't just build code; they built solutions.",
-    },
-    {
-        name: "Marcus Thorne",
-        company: "Velocity Fintech",
-        text: "The delivery speed and code quality were exceptional. Pazzy is truly at the cutting edge of digital development.",
-    },
-];
+gsap.registerPlugin(ScrollTrigger);
 
-export const Testimonials = () => {
-    const [index, setIndex] = useState(0);
+interface Testimonial {
+    id: string;
+    name: string;
+    company: string;
+    text: string;
+}
+
+export const Testimonials = ({ initialTestimonials }: { initialTestimonials: Testimonial[] }) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setIndex((prev) => (prev + 1) % testimonials.length);
-        }, 5000);
-        return () => clearInterval(interval);
+        const ctx = gsap.context(() => {
+            gsap.fromTo(".testimonial-card",
+                { scale: 0.9, opacity: 0 },
+                { scrollTrigger: { trigger: containerRef.current, start: "top 80%" }, scale: 1, opacity: 1, stagger: 0.15, duration: 1, ease: "back.out(1.4)" }
+            );
+        }, containerRef);
+        return () => ctx.revert();
     }, []);
 
-    useEffect(() => {
-        gsap.fromTo(
-            ".testimonial-card",
-            { opacity: 0, x: 20 },
-            { opacity: 1, x: 0, duration: 0.8, ease: "power2.out" }
-        );
-    }, [index]);
-
     return (
-        <section className="py-16 md:py-24 px-5 sm:px-8 overflow-hidden bg-gradient-glow">
-            <div className="max-w-4xl mx-auto text-center" ref={containerRef}>
-                <div className="flex justify-center mb-6 md:mb-8">
-                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl glass flex items-center justify-center border border-white/5 shadow-[0_4px_14px_rgba(232,52,42,0.15)]">
-                        <Quote className="text-primary w-5 h-5 md:w-6 md:h-6" />
-                    </div>
-                </div>
-
-                <div className="testimonial-card">
-                    <p className="text-xl sm:text-2xl md:text-4xl font-medium leading-[1.3] md:leading-[1.4] mb-8 md:mb-12 italic text-white/90">
-                        "{testimonials[index].text}"
+        <section id="testimonials" ref={containerRef} className="py-16 md:py-24 px-5 sm:px-8 scroll-mt-24">
+            <div className="max-w-[1400px] mx-auto">
+                <div className="text-center mb-12 md:mb-20">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 italic tracking-tight">Client <span className="text-gradient-red">Voices</span></h2>
+                    <p className="text-white/50 text-base md:text-lg max-w-xl mx-auto">
+                        Real stories from partners who scaled their businesses with Pazzy Solutions.
                     </p>
-                    <div>
-                        <h4 className="text-lg md:text-xl font-bold">{testimonials[index].name}</h4>
-                        <p className="text-primary text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] md:tracking-widest mt-1.5 md:mt-2">{testimonials[index].company}</p>
-                    </div>
                 </div>
 
-                <div className="flex justify-center gap-2 md:gap-3 mt-10 md:mt-16">
-                    {testimonials.map((_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => setIndex(i)}
-                            className={`w-3 h-3 rounded-full transition-all duration-300 ${index === i ? "bg-primary w-8" : "bg-white/10"
-                                }`}
-                        />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                    {initialTestimonials.map((testimonial) => (
+                        <div key={testimonial.id} className="testimonial-card glass p-8 sm:p-10 rounded-[2.5rem] relative group border border-white/5 hover:border-primary/20 transition-all duration-500">
+                            <div className="absolute top-8 right-10 text-primary/10 group-hover:text-primary/30 transition-colors">
+                                <Quote size={40} />
+                            </div>
+                            
+                            <p className="text-white/70 text-base sm:text-lg leading-relaxed mb-8 relative z-10">
+                                "{testimonial.text}"
+                            </p>
+
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center font-bold text-lg text-white">
+                                    {testimonial.name.charAt(0)}
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-white text-base sm:text-lg">{testimonial.name}</h4>
+                                    <p className="text-primary/60 text-xs sm:text-sm font-medium uppercase tracking-widest">{testimonial.company}</p>
+                                </div>
+                            </div>
+                        </div>
                     ))}
                 </div>
             </div>
