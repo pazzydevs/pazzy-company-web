@@ -1,0 +1,56 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import Link from "next/link";
+
+const clients = [
+    "TECHFLOW", "NEXUS AI", "QUANTUM", "VELOCITY", "ELEVATE", "SYNERGY", "HORIZON", "PULSE", "ZENITH", "VORTEX"
+];
+
+export const Clients = () => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.to(".client-scroller", {
+                xPercent: -50,
+                repeat: -1,
+                duration: 25,
+                ease: "none",
+            });
+        }, scrollRef);
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <section id="clients" className="py-12 md:py-24 relative overflow-hidden scroll-mt-24" ref={scrollRef}>
+            <div className="max-w-7xl mx-auto px-5 sm:px-8 mb-10 md:mb-16 text-center">
+                <h2 className="text-white/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-4">Trusted by Industry Leaders Worldwide</h2>
+                <div className="h-[1px] w-16 sm:w-24 bg-gradient-to-r from-transparent via-primary/50 to-transparent mx-auto" />
+            </div>
+
+            <div className="relative">
+                {/* Fade masks */}
+                <div className="absolute inset-y-0 left-0 w-40 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+                <div className="absolute inset-y-0 right-0 w-40 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+
+                <div className="flex whitespace-nowrap client-scroller items-center py-4">
+                    {[...clients, ...clients].map((client, i) => (
+                        <div key={i} className="flex items-center justify-center px-16 group">
+                            <span className="text-3xl md:text-4xl font-black text-white/10 hover:text-primary transition-all duration-500 cursor-default tracking-tighter uppercase italic group-hover:scale-110">
+                                {client}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-16 text-center">
+                    <Link href="/clients" className="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all uppercase tracking-widest text-sm">
+                        View our full client list <span>→</span>
+                    </Link>
+                </div>
+            </div>
+        </section>
+    );
+};
