@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,65 +16,71 @@ interface Project {
     image: string;
 }
 
-export const Projects = ({ initialProjects }: { initialProjects: Project[] }) => {
+export const Projects = ({ initialProjects = [] }: { initialProjects?: Project[] }) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (!initialProjects || initialProjects.length === 0) return;
+
         const ctx = gsap.context(() => {
             gsap.fromTo(".project-card",
-                { y: 60, opacity: 0 },
-                { scrollTrigger: { trigger: containerRef.current, start: "top 80%" }, y: 0, opacity: 1, stagger: 0.15, duration: 0.8, ease: "power2.out" }
+                { y: 100, opacity: 0 },
+                { scrollTrigger: { trigger: containerRef.current, start: "top 80%" }, y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power4.out" }
             );
         }, containerRef);
         return () => ctx.revert();
-    }, []);
+    }, [initialProjects]);
+
+    if (!initialProjects || initialProjects.length === 0) return null;
 
     return (
-        <section id="ai" ref={containerRef} className="py-16 md:py-24 px-5 sm:px-8 scroll-mt-24">
+        <section id="projects" ref={containerRef} className="py-16 md:py-32 px-5 sm:px-8 scroll-mt-24">
             <div className="max-w-[1400px] mx-auto">
-                <div className="mb-12 md:mb-16">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Ongoing <span className="text-gradient-red">Innovations</span></h2>
-                    <p className="text-white/60 text-base md:text-lg max-w-2xl">
-                        A glimpse into the cutting-edge solutions we're currently building for our partners.
-                    </p>
+                <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-24 gap-8">
+                    <div className="max-w-2xl">
+                        <h2 className="text-white/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.4em] mb-4">Our Portfolio</h2>
+                        <h3 className="text-4xl sm:text-5xl md:text-7xl font-black italic tracking-tighter">Recent <span className="text-gradient-red">Innovations</span></h3>
+                    </div>
+                    <div className="hidden md:block">
+                        <p className="text-white/40 text-right max-w-xs text-sm uppercase tracking-widest font-bold">Pushing the boundaries of digital possibilities.</p>
+                    </div>
                 </div>
 
-                {initialProjects.length === 0 ? (
-                    <div className="text-center py-20 glass rounded-[2rem] border border-white/5">
-                        <p className="text-white/50 text-lg">No projects added yet.</p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-                        {initialProjects.map((project) => (
-                            <div key={project.id} className="project-card glass rounded-2xl md:rounded-[2rem] overflow-hidden group cursor-pointer hover:border-primary/30 transition-all duration-500 hover:shadow-[0_15px_30px_rgba(232,52,42,0.1)]">
-                                <div className="h-44 sm:h-52 md:h-64 relative overflow-hidden">
-                                    <img
-                                        src={project.image}
-                                        alt={project.name}
-                                        className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700 ease-out"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent opacity-90" />
-                                    <div className="absolute top-4 right-4 z-10">
-                                        <div className={`px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase flex items-center gap-2 backdrop-blur-md border border-white/5 ${project.status === "Completed" ? "bg-primary/20 text-[#ff6b5e]" : "bg-white/10 text-white/70"}`}>
-                                            <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${project.status === "Completed" ? "bg-[#ff6b5e]" : "bg-white/60"}`} />
-                                            {project.status}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="p-5 sm:p-8">
-                                    <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 group-hover:text-primary transition-colors">{project.name}</h3>
-                                    <p className="text-white/50 mb-5 leading-relaxed text-sm sm:text-base">{project.description}</p>
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.tech.split(",").map((t) => (
-                                            <span key={t.trim()} className="px-2.5 py-1 rounded-lg bg-white/5 text-xs text-white/50 border border-white/10">{t.trim()}</span>
-                                        ))}
-                                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                    {initialProjects.map((project, index) => (
+                        <div key={project.id} className={`project-card group relative ${index % 2 === 1 ? 'md:mt-24' : ''}`}>
+                            <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] sm:rounded-[3rem] glass border border-white/10">
+                                <img
+                                    src={project.image}
+                                    alt={project.name}
+                                    className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity" />
+                                
+                                <div className="absolute top-8 right-8">
+                                    <span className="px-4 py-2 glass rounded-full text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20">
+                                        {project.status}
+                                    </span>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                )}
+
+                            <div className="mt-8 space-y-4 px-4 sm:px-8">
+                                <div className="flex justify-between items-start">
+                                    <h4 className="text-2xl sm:text-3xl font-black italic tracking-tight group-hover:text-primary transition-colors">{project.name}</h4>
+                                    <span className="text-primary font-black text-xl opacity-0 group-hover:opacity-100 transition-all translate-x-[-10px] group-hover:translate-x-0">→</span>
+                                </div>
+                                <p className="text-white/50 text-sm sm:text-base leading-relaxed max-w-md">
+                                    {project.description}
+                                </p>
+                                <div className="flex flex-wrap gap-2 pt-2">
+                                    {project.tech.split(",").map(t => (
+                                        <span key={t} className="text-[10px] font-bold text-white/30 uppercase tracking-widest">{t.trim()}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
     );

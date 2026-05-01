@@ -1,9 +1,14 @@
-"use client";
-
 import { About } from "@/components/About";
 import { Testimonials } from "@/components/Testimonials";
+import { prisma } from "@/lib/prisma";
 
-export default function AboutPage() {
+async function getTestimonials() {
+    return await prisma.testimonial.findMany({ orderBy: { createdAt: "desc" } });
+}
+
+export default async function AboutPage() {
+    const testimonials = await getTestimonials();
+
     return (
         <main className="relative pt-20 sm:pt-24 min-h-screen">
             <div className="max-w-7xl mx-auto px-5 sm:px-8 mb-8 sm:mb-12">
@@ -13,7 +18,7 @@ export default function AboutPage() {
                 </p>
             </div>
             <About />
-            <Testimonials />
+            <Testimonials initialTestimonials={testimonials} />
         </main>
     );
 }

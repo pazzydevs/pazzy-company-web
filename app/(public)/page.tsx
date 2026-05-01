@@ -1,5 +1,3 @@
-import { Navbar } from "@/components/Navbar";
-import Scene from "@/components/Scene";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Services } from "@/components/Services";
@@ -7,10 +5,6 @@ import { Projects } from "@/components/Projects";
 import { Clients } from "@/components/Clients";
 import { Testimonials } from "@/components/Testimonials";
 import { Contact } from "@/components/Contact";
-import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { Preloader } from "@/components/Preloader";
-import { ScrollProvider } from "@/components/ScrollProvider";
 import { prisma } from "@/lib/prisma";
 
 async function getProjects() {
@@ -79,21 +73,14 @@ export default async function Home() {
   ]);
 
   return (
-    <ScrollProvider>
-      <Preloader />
-      <Scene />
-      <Navbar />
-      <main className="relative">
-        <Hero />
-        <Clients initialClients={clients} />
-        <About />
-        <Services initialServices={services} />
-        <Projects initialProjects={projects} />
-        <Testimonials initialTestimonials={testimonials} />
-        <Contact />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </ScrollProvider>
+    <main className="relative">
+      <Hero />
+      <Clients initialClients={clients} />
+      <About />
+      <Services initialServices={services} />
+      <Projects initialProjects={projects} />
+      <Testimonials initialTestimonials={testimonials} />
+      <Contact />
+    </main>
   );
 }

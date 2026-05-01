@@ -15,10 +15,12 @@ interface Service {
     gradient: string;
 }
 
-export const Services = ({ initialServices }: { initialServices: Service[] }) => {
+export const Services = ({ initialServices = [] }: { initialServices?: Service[] }) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (!initialServices || initialServices.length === 0) return;
+
         const ctx = gsap.context(() => {
             gsap.fromTo(".service-card",
                 { y: 50, opacity: 0 },
@@ -26,7 +28,9 @@ export const Services = ({ initialServices }: { initialServices: Service[] }) =>
             );
         }, containerRef);
         return () => ctx.revert();
-    }, []);
+    }, [initialServices]);
+
+    if (!initialServices || initialServices.length === 0) return null;
 
     return (
         <section id="services" ref={containerRef} className="py-16 md:py-24 px-5 sm:px-8 scroll-mt-24">
@@ -40,7 +44,6 @@ export const Services = ({ initialServices }: { initialServices: Service[] }) =>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {initialServices.map((service) => {
-                        // Dynamically resolve icon
                         const Icon = (LucideIcons as any)[service.iconName] || LucideIcons.Briefcase;
                         
                         return (

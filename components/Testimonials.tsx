@@ -14,10 +14,12 @@ interface Testimonial {
     text: string;
 }
 
-export const Testimonials = ({ initialTestimonials }: { initialTestimonials: Testimonial[] }) => {
+export const Testimonials = ({ initialTestimonials = [] }: { initialTestimonials?: Testimonial[] }) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (!initialTestimonials || initialTestimonials.length === 0) return;
+
         const ctx = gsap.context(() => {
             gsap.fromTo(".testimonial-card",
                 { scale: 0.9, opacity: 0 },
@@ -25,7 +27,9 @@ export const Testimonials = ({ initialTestimonials }: { initialTestimonials: Tes
             );
         }, containerRef);
         return () => ctx.revert();
-    }, []);
+    }, [initialTestimonials]);
+
+    if (!initialTestimonials || initialTestimonials.length === 0) return null;
 
     return (
         <section id="testimonials" ref={containerRef} className="py-16 md:py-24 px-5 sm:px-8 scroll-mt-24">

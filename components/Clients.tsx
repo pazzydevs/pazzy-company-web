@@ -9,10 +9,12 @@ interface Client {
     name: string;
 }
 
-export const Clients = ({ initialClients }: { initialClients: Client[] }) => {
+export const Clients = ({ initialClients = [] }: { initialClients?: Client[] }) => {
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (!initialClients || initialClients.length === 0) return;
+
         const ctx = gsap.context(() => {
             gsap.to(".client-scroller", {
                 xPercent: -50,
@@ -22,7 +24,9 @@ export const Clients = ({ initialClients }: { initialClients: Client[] }) => {
             });
         }, scrollRef);
         return () => ctx.revert();
-    }, []);
+    }, [initialClients]);
+
+    if (!initialClients || initialClients.length === 0) return null;
 
     // Ensure we have enough items for a smooth infinite scroll
     const items = [...initialClients, ...initialClients, ...initialClients];
